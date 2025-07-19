@@ -1,0 +1,15 @@
+#系统配置
+system:
+  host: "127.0.0.1"
+  port: 8080
+
+#mysql配置
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "yzgl"
+  dbname: "gochat"
+  maxidle: 50
+  maxopen: 150
+  maxlifetime: 300
