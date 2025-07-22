@@ -1,19 +1,22 @@
 package router
 
 import (
+	"gochat/dao/mysql"
 	"gochat/middleware"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
+	"github.com/redis/go-redis/v9"
 )
 
-func InitRouter(db *gorm.DB) *gin.Engine {
+func InitRouter(redisdb *redis.Client, userdao *mysql.UserDao) *gin.Engine {
 	//初始化路由
 	r := gin.Default()
 	r.Use(middleware.Logging())
 	r.Use(middleware.ErrorHandler())
+	r.Use(cors.Default()) // 这里用 gin-contrib/cors
 
-	UserRouterInit(r, db)
+	UserRouterInit(r, redisdb, userdao)
 	return r
 
 }

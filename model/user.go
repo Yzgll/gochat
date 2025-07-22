@@ -1,9 +1,5 @@
 package model
 
-import (
-	"gorm.io/gorm"
-)
-
 type User struct {
 	ID           uint64 `gorm:"primaryKey;autoIncrement" json:"id"`        //自增主键，数据库内部使用
 	Ggnumber     uint64 `gorm:"uniqueIndex" json:"ggnumber"`               //gg号，类似于qq号码，用于登录,唯一
@@ -19,9 +15,4 @@ type User struct {
 	Email        string `gorm:"uniqueIndex;size:50;not null" json:"email"` //邮箱
 	Registertime int64  `gorm:"autoCreateTime" json:"registertime"`        //注册时间
 	Status       int8   `gorm:"default:1" json:"status"`                   //账号状态 0封禁 1正常 2冻结
-}
-
-func InitModel(db *gorm.DB) {
-	db.AutoMigrate(&User{})
-
 }

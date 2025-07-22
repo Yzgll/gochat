@@ -8,18 +8,13 @@ type RegisterRequest struct {
 	Birthdate string `json:"birthdate" binding:"required,len=10"` //yyyy-mm-dd
 	Phone     string `json:"phone" binding:"required,len=11,number"`
 	Email     string `json:"email" binding:"required,email"`
-
-	//验证码
-	SmsCode string `json:"sms_code" binding:"required,len=6,number"` // 短信验证码
 }
 
-//发送验证码请求结构体
-type SendSmsRequest struct {
-	Phone string `json:"phone" binding:required,len=11,number`
-}
+type LoginRequest struct {
+	// 三种登录方式任选其一（通过binding标签的验证规则实现互斥）
+	Ggnumber uint64 `json:"ggnumber"`                                // Ggnumber是数字类型，非必填
+	Phone    string `json:"phone" binding:"omitempty,len=11,number"` // 可选，长度11位数字
+	Email    string `json:"email" binding:"omitempty,email"`         // 可选，邮箱格式
 
-//验证验证码结构体
-type VerifySmsRequest struct {
-	Phone   string `json:"phone" binding:"required,len=11,number"`
-	SmsCode string `json:"smscode" binding:"required,len=6,number"`
+	Password string `json:"password" binding:"required,min=8"` // 密码必填
 }
